@@ -9,9 +9,9 @@ class Conexion {
 
     public function __construct() {
         $this->host = 'localhost';
-        $this->db = 'id21582893_mexihat';
-        $this->user = 'id21582893_adminmexihat';
-        $this->password = 'Admin123#';
+        $this->db = 'Mexihat';
+        $this->user = 'adminMexihat';
+        $this->password = 'admin123';
     }
 
     function connect() {
