@@ -22,25 +22,24 @@ if (isset($_SESSION["user_id"])) {
 	$catalogo = $catalogoController->getCatalogo($Mod);
 
 
-	if (!empty($_POST['cantidadPro_P']) && !empty($_POST['envio']) && !empty($_POST['realizarPedido'])) {
-		if($_POST['cantidadPro_P']>5){
-			$total=$_POST['cantidadPro_P']*$catalogo['precioMay_M'];
+	if (!empty($_POST['cantidadPro_P']) && !empty($_POST['realizarPedido'])) {
+		if(empty($_POST['envio'])){
+			echo "<script>alert('Por favor, rellene el campo de envío');</script>";
 		}else{
-			$total=$_POST['cantidadPro_P']*$catalogo['precioMen_M'];
+			if($_POST['cantidadPro_P']>5){
+				$total=$_POST['cantidadPro_P']*$catalogo['precioMay_M'];
+			}else{
+				$total=$_POST['cantidadPro_P']*$catalogo['precioMen_M'];
+			}
+			$cantidad=$_POST['cantidadPro_P'];
+			$envio=$_POST['envio'];
+			$pedidoController = new PedidoController();
+			$pedidoController->insertarPedido($user['id_cliente'],$Mod,$fecha,$cantidad,$total,$envio);
 		}
-	
-		$cantidad=$_POST['cantidadPro_P'];
-		$envio=$_POST['envio'];
-		
-		$pedidoController = new PedidoController();
-		$pedidoController->insertarPedido($user['id_cliente'],$Mod,$fecha,$cantidad,$total,$envio);
-	} 
+	}
 } else {
 	header('Location: ./../index.php');
 }
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
