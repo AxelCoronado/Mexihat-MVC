@@ -10,6 +10,12 @@ class UsuarioController{
 
         $userModel = new Usuario('','','','','','','','','','','','', '');
 
+	// Verificar si el correo electrónico existe en la base de datos
+    	if(!$userModel->emailExists($correo)){
+        	echo "<script>javascript:alert('Usuario no encontrado, crea una cuenta.');</script>";
+        	return;
+    	}
+
         $result = $userModel->logIn($correo, $contra);
         
         if($result == true){
